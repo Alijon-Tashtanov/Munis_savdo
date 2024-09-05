@@ -1,0 +1,10 @@
+{
+    "development": {
+        "secret": "SECRET_KEY_RANDOM",
+        "username": "root",
+        "password": null,
+        "database": "munis_savdo_test",
+        "host": "localhost",
+        "dialect": "mysql"
+    }
+}

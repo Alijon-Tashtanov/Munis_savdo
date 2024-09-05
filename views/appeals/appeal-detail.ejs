@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appeal Detail</title>
+    <link rel="stylesheet" href="/styles/appeal_detail.css" />
+    <style>
+        /* Inline CSS for quick preview, move to appeal_detail.css */
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background-color: #9c27b0;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .header h2 {
+            margin: 0;
+        }
+        
+        .appeal-info {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .appeal-info p {
+            margin: 5px 0;
+        }
+        
+        .appeal-info .category {
+            color: #9c27b0;
+        }
+        
+        .buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .btn.accept {
+            background-color: #4caf50;
+        }
+        
+        .btn.reject {
+            background-color: #f44336;
+        }
+        
+        .history,
+        .messages {
+            margin-top: 20px;
+        }
+        
+        .history .history-item {
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .messages textarea {
+            width: calc(100% - 50px);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .messages button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #9c27b0;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Етказиб бериш бўйича</h2>
+        </div>
+
+        <div class="appeal-info">
+            <p>Микроз савдо марказидан 20.02.2023-куни...</p>
+            <p>Қўшимча маълумот: Янгона алоқа маркази</p>
+            <p>Мурожаат қилувчи: Толипов Шухрат XXX</p>
+            <p>Телефон номер: +998(91)-155-57-76</p>
+            <p>Категория: <span class="category">Етказиб бериш бўйича</span></p>
+            <div class="buttons">
+                <button class="btn accept">Қабул қилинди</button>
+                <button class="btn reject">Бекор қилиш</button>
+            </div>
+        </div>
+
+        <!-- <div class="history">
+            <h3>Мурожаат тарихи</h3>
+            <div class="history-item">
+                <p>Зайлобиддинов Шохжахон Шухрат ўғли</p>
+                <p>2023-02-21 17:26:36</p>
+                <p>Мурожаат келиб тушди</p>
+            </div>
+        </div> -->
+
+        <!-- <div class="messages">
+            <h3>Хабарлар</h3>
+            <textarea placeholder="Хабар қолдиринг"></textarea>
+            <button>Юбориш</button>
+        </div> -->
+    </div>
+</body>
+
+</html>

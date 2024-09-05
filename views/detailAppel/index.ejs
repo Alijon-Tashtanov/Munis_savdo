@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Murojaatlar</title>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .header span {
+            font-size: 18px;
+            margin-left: 10px;
+        }
+        
+        .header a {
+            color: white;
+            font-size: 18px;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+        }
+        
+        .switch input {
+            display: none;
+        }
+        
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 50px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked+.slider {
+            background-color: #2196f3;
+        }
+        
+        input:checked+.slider:before {
+            transform: translateX(18px);
+        }
+        
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        
+        .styled-table th,
+        .styled-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .styled-table th {
+            background-color: #6a1b9a;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .styled-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .styled-table tr:hover {
+            background-color: #ddd;
+        }
+        
+        .styled-table td {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .styled-table th,
+        .styled-table td {
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Мурожаатлар</h1>
+
+        <!-- Header Section -->
+        <div class="header">
+            <a href="/api"><i class="fa-solid fa-house"></i></a>
+            <div>
+                <span>Мурожаатлар</span>
+                <label class="switch">
+            <input type="checkbox" id="toggleCheckbox" />
+            <span class="slider"></span>
+          </label>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <% if (appeal) { %>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Filial</th>
+                            <th>Категория</th>
+                            <th>Murojaat qiluvchi</th>
+                            <th>Telefon nomer</th>
+                            <th>Qo'shimcha ma'lumotlar</th>
+                            <th>Created Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <%= appeal.filialDetails ? appeal.filialDetails.name : 'No
+                Filial' %>
+                            </td>
+                            <td>
+                                <%= appeal.categoryDetails ? appeal.categoryDetails.name : 'No
+                Category' %>
+                            </td>
+                            <td>
+                                <%= appeal.full_name %>
+                            </td>
+                            <td>
+                                <%= appeal.phone_number %>
+                            </td>
+                            <td>
+                                <%= appeal.additional_info %>
+                            </td>
+                            <td>
+                                <%= new Date(appeal.created_at).toLocaleString() %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <% } else { %>
+                    <p style="text-align: center; color: #999">Murojaat mavjud emas.</p>
+                    <% } %>
+        </div>
+    </div>
+
+    <script>
+        document
+            .getElementById("toggleCheckbox")
+            .addEventListener("change", function() {
+                const container = document.querySelector(".container-fluid");
+                container.style.display = this.checked ? "none" : "block";
+            });
+    </script>
+</body>
+
+</html>
