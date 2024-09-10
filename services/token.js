@@ -1,21 +1,14 @@
-import jwt from "jsonwebtoken";
-const secretKey = config.secretKey || "myjwttoken";
-export default function generateJWTToken(userId) {
-    try {
-        const accessToken = jwt.sign({ userId }, secretKey, {
-            expiresIn: "30d",
-        });
-        return accessToken;
-    } catch (error) {
-        return null;
-    }
-}
-export function checkJWTToken(token) {
-    try {
-        const { iat, exp } = jwt.verify(token, secretKey);
-        const currentUnixTime = Math.floor(new Date().getTime() / 1000);
-        return currentUnixTime < exp;
-    } catch (err) {
-        return false;
-    }
-}
+const jwt = require("jsonwebtoken");
+
+const generateJWTToken = (userId, permissionId) => {
+    const payload = {
+        id: userId,
+        permission_id: permissionId,
+    };
+
+    return jwt.sign(payload, process.env.JWT_SECRET || "myjwttoken", {
+        expiresIn: "7d",
+    });
+};
+
+module.exports = generateJWTToken;

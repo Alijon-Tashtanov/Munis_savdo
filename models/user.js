@@ -1,7 +1,5 @@
-// const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/config.json"); // Adjust the path as necessary
-
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/config");
 
 module.exports = (sequelize) => {
     class User extends Model {}
@@ -11,10 +9,16 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        login: {
+        phone: {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true, // Ensure the field is properly defined
+        },
+
         password: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -24,18 +28,18 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
         filial_id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER, // Changed to INTEGER
             allowNull: true,
             references: {
                 model: "filials",
                 key: "id",
             },
         },
-        permission_id: {
-            type: DataTypes.STRING,
+        position_id: {
+            type: DataTypes.INTEGER, // Changed to INTEGER
             allowNull: true,
             references: {
-                model: "permissions",
+                model: "positions",
                 key: "id",
             },
         },

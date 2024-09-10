@@ -235,7 +235,7 @@
 
         <!-- Header Section -->
         <div class="header">
-            <a href="/api"><i class="fa-solid fa-house"></i></a>
+            <a href="/api/dashboard"><i class="fa-solid fa-house"></i></a>
             <div>
                 <span>Мурожаатлар</span>
                 <label class="switch">
@@ -273,7 +273,7 @@
         <!-- Buttons Section -->
         <div class="buttons">
             <a href="/api/create-murojaat" class="add-btn">Қўшиш</a>
-            <a href="/download" class="export-btn">Юклаш (PDF)</a>
+            <!-- <a href="/download" class="export-btn">Юклаш (PDF)</a> -->
         </div>
 
         <!-- Appeals Section -->
@@ -300,6 +300,9 @@
 
                             <p><strong>Qo'shimcha ma'lumotlar:</strong>
                                 <%= appeal.additional_info %>
+                            </p>
+                            <p><strong>xodim komentariyasi:</strong>
+                                <%= appeal.accepted_comment %>
                             </p>
                         </div>
                         <div class="appeal-footer">

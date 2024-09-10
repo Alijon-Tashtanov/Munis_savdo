@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
                     key: "id",
                 },
             },
+            top_category: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                references: {
+                    model: "top_categories",
+                    key: "id",
+                },
+            },
             filials: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -53,18 +61,23 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.TEXT,
                 allowNull: true,
             },
-            status: {
-                type: DataTypes.INTEGER,
+            accepted_comment: {
+                type: DataTypes.TEXT,
                 allowNull: true,
             },
+
             created_at: {
                 type: DataTypes.DATE,
                 allowNull: false,
                 defaultValue: DataTypes.NOW,
             },
+            accepted_at: {
+                type: DataTypes.DATE,
+                allowNull: true,
+            },
             created_by: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true, // Or false if it should never be null
             },
             emp_id: {
                 type: DataTypes.INTEGER,
@@ -81,6 +94,24 @@ module.exports = (sequelize, DataTypes) => {
                     model: "statuses",
                     key: "id",
                 },
+            },
+            resulted_comment: {
+                type: DataTypes.STRING,
+            },
+            resulted_at: {
+                type: DataTypes.DATE,
+            },
+            result_by: {
+                type: DataTypes.STRING,
+            },
+            finished_comment: {
+                type: DataTypes.STRING,
+            },
+            finished_at: {
+                type: DataTypes.DATE,
+            },
+            finished_by: {
+                type: DataTypes.STRING,
             },
             deadline_at: {
                 type: DataTypes.DATE, // or Sequelize.DATEONLY if only date is needed

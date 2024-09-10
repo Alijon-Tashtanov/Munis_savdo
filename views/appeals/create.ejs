@@ -104,7 +104,7 @@
             <h2>Мурожаат яратиш</h2>
         </div>
         <form class="appeal-form" action="/api/save-murojaat" method="POST">
-            <input type="hidden" name="status" value="1" />
+            <input type="hidden" name="status" value="7" />
             <div class="form-group">
                 <input type="text" name="full_name" placeholder="ФИО" required />
                 <input type="text" name="phone_number" placeholder="+998(XX)-XXX-XX-XX" required />
@@ -153,40 +153,38 @@
           </select>
             </div>
             <div class="form-footer">
-                <a type="button" href="/murojaat" class="cancel-btn">Бекор қилиш</a>
-                <button type="submit" class="submit-btn">Тасдиқлаш</button>
-            </div>
-        </form>
+                <a type="button" href="/api/appeals" class="cancel-btn">Бекор қилиш</a
+          >
+          <button type="submit" class="submit-btn">Тасдиқлаш</button>
+        </div>
+      </form>
     </div>
     <script>
-        document
-            .getElementById("filials")
-            .addEventListener("change", function() {
-                const filialId = this.value;
+      document
+        .getElementById("filials")
+        .addEventListener("change", function () {
+          const filialId = this.value;
 
-                // Check if a valid filialId is selected
-                if (!filialId) {
-                    document.getElementById("employees").innerHTML =
-                        '<option value="">Employees</option>';
-                    return;
-                }
+          if (!filialId) {
+            document.getElementById("employees").innerHTML =
+              '<option value="">Employees</option>';
+            return;
+          }
 
-                // Perform AJAX request
-                fetch(`/api/get-employees?filial_id=${filialId}`)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log("1121", data);
-                        let options = '<option value="">Employees</option>';
-                        data.forEach((employee) => {
-                            options += `<option value="${employee.id}">${employee.name}</option>`;
-                        });
-                        document.getElementById("employees").innerHTML = options;
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching employees:", error);
-                    });
+          fetch(`/api/get-employees?filial_id=${filialId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("1121", data);
+              let options = '<option value="">Employees</option>';
+              data.forEach((employee) => {
+                options += `<option value="${employee.id}">${employee.name}</option>`;
+              });
+              document.getElementById("employees").innerHTML = options;
+            })
+            .catch((error) => {
+              console.error("Error fetching employees:", error);
             });
+        });
     </script>
-</body>
-
+  </body>
 </html>

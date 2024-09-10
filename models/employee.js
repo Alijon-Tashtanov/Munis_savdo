@@ -11,6 +11,16 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false, // Ensure it's defined and not null
+                unique: true,
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false, // Ensure it's defined and not null
+            },
+
             phone: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -28,6 +38,14 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 references: {
                     model: "positions",
+                    key: "id",
+                },
+            },
+            permission_id: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                references: {
+                    model: "permissions",
                     key: "id",
                 },
             },

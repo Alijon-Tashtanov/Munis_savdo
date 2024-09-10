@@ -1,9 +1,14 @@
 const { Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs"); // Make sure bcrypt is also imported if it's not already
+const generateJWTToken = require("../services/token");
+console.log("generateJWTToken:", generateJWTToken);
 const {
     Employee,
     Appeal,
     Category,
     AppealType,
+    Permissions,
     Filials,
     TopCategories,
     Positions,
@@ -30,10 +35,18 @@ exports.getMainPage = async(req, res) => {
             whereConditions.filial_id = filterFilial;
         }
 
-        const { rows: data, count } = await User.findAndCountAll({
-            where: whereConditions,
+        // const { Op } = require("sequelize");
+
+        const { rows: data, count } = await Employee.findAndCountAll({
+            where: {
+                [Op.and]: [
+                    whereConditions, // Dynamic conditions like search term and filial_id
+                    { status: 1 }, // Only fetch users with status equal to 1
+                ],
+            },
             include: [
                 { model: Filials, as: "filial" },
+                { model: Positions, as: "position" },
                 { model: Permissions, as: "permission" },
             ],
             limit: limit,
@@ -48,15 +61,20 @@ exports.getMainPage = async(req, res) => {
                 status: 1,
             },
         });
+        const positions = await Positions.findAll({
+            where: {
+                status: 1,
+            },
+        });
 
         const totalPages = Math.ceil(count / limit);
 
-        res.render("users/index", {
+        res.render("employees/index", {
             data: data || [],
-            permissions: permissions,
+            positions: positions,
             filials: filials,
             filterFilial: filterFilial,
-            filterPermission: filterPermission,
+
             currentPage: page,
             totalPages: totalPages,
         });
@@ -82,11 +100,17 @@ exports.createEmployee = async(req, res) => {
                 status: 1,
             },
         });
+        const permissions = await Permissions.findAll({
+            where: {
+                status: 1,
+            },
+        });
 
         res.render("employees/create", {
             title: "Create Page",
             positions: positions,
             filials: filials,
+            permissions: permissions,
         });
     } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -99,23 +123,65 @@ exports.createEmployee = async(req, res) => {
 
 exports.saveEmployee = async(req, res) => {
     try {
-        const { name, phone, filial_id, position_id, title } = req.body;
-
-        await Employee.create({
+        const {
             name,
             phone,
+            email,
+            password,
             filial_id,
             position_id,
+            permission_id,
+            title,
+        } = req.body;
+        console.log("Request body:", req.body);
+
+        if (!name || !email || !password) {
+            res.redirect("/api/create-employee");
+            return;
+        }
+
+        const existingUser = await Employee.findOne({ where: { email } });
+        console.log("Existing user:", existingUser);
+
+        if (existingUser) {
+            res.redirect("/api/create-employee");
+            return;
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 8);
+
+        const newUser = await Employee.create({
+            name,
+            phone,
+            email,
+            password: hashedPassword,
+            filial_id,
+            position_id,
+            permission_id,
             title,
             created_at: new Date(),
             updated_at: new Date(),
         });
+
+        // Generate JWT token for the newly created user
+        const token = generateJWTToken(newUser.id, permission_id);
+
+        // Set the token as a cookie
+        res.cookie("token", token, {
+            httpOnly: true,
+            sameSite: "Strict",
+            secure: false,
+        });
+
+        console.log("Generated token:", token);
+
         res.redirect("/api/employees");
     } catch (error) {
-        console.error("Error saving appeal:", error);
+        console.error("Error saving employee:", error);
+
         res.status(500).json({
             message: "Internal Server Error",
-            error: error,
+            error: error.message,
         });
     }
 };
@@ -183,17 +249,60 @@ exports.renderEditEmployeePage = async(req, res) => {
 
 exports.deleteEmployee = async(req, res) => {
     try {
+        // console.log("deleteId", req.params.id);
         const itemId = req.params.id;
-        const result = await Employee.update({ status: 0 }, { where: { id: itemId } });
+        const employee = await Employee.findByPk(itemId);
 
-        if (result[0] === 0) {
-            return res.status(404).json({ error: "No Filial found with this ID" });
+        if (!employee) {
+            return res.status(404).json({ error: "No employee found with this ID" });
         }
+
+        employee.status = 0; // Update the status field
+        await employee.save();
         res.redirect("/api/employees");
     } catch (error) {
         console.error("Error deleting Filial:", error); // Log the actual error for debugging
         res
             .status(500)
             .json({ error: "An error occurred while deleting the item" });
+    }
+};
+
+exports.editPassword = async(req, res) => {
+    try {
+        res.render("employees/editPassword", {
+            title: "Edit Password",
+            id: req.params.id,
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+        });
+    }
+};
+exports.updatePassword = async(req, res) => {
+    try {
+        const { id, password1, password2 } = req.body;
+
+        if (password1 !== password2) {
+            return res.redirect("back");
+        }
+
+        const employee = await Employee.findByPk(id);
+        if (!employee) {
+            return res.status(404).json({ message: "Employee not found!" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password1, 8);
+
+        employee.password = hashedPassword;
+        await employee.save();
+
+        return res.redirect("/api/employees");
+    } catch (error) {
+        console.error("Error updating password:", error);
+        return res.status(500).json({ message: "Internal Server Error", error });
     }
 };

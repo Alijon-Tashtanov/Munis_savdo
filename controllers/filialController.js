@@ -13,7 +13,12 @@ const {
 
 exports.getMainPage = async(req, res) => {
     try {
-        const data = await Filials.findAll();
+        const data = await Filials.findAll({
+            where: {
+                status: 1,
+            },
+        });
+
         // console.log(data);
         res.render("filials/index", {
             title: "Filials Page",

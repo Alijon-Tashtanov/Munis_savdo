@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Permissions } = require("../models");
+const { Permissions, Employee } = require("../models");
 // const Status = require("../models/status");
 
 exports.getMainPage = async(req, res) => {
@@ -60,14 +60,31 @@ exports.createPermission = async(req, res) => {
 exports.savePermission = async(req, res) => {
     try {
         const { name } = req.body;
-        const created_by = req.user ? req.user.name : "Unknown";
-        const updated_by = req.user ? req.user.name : "Unknown";
-        await Permissions.create({
-            name,
-            created_by,
-            updated_by,
-        });
-        res.redirect("/api/permissions");
+        const id = req.user.id; // Get the employee ID from the request object
+
+        // Find the employee by primary key
+        const employee = await Employee.findByPk(id);
+
+        if (employee) {
+            // Access the employee's name
+            const userName = employee.name; // 'name' is a property of employee
+            console.log("--==--==+++", userName);
+
+            // Assign the employee's name to created_by and updated_by
+            const created_by = userName ? userName : "Unknown";
+            const updated_by = userName ? userName : "Unknown";
+
+            // Create a new permission record
+            await Permissions.create({
+                name,
+                created_by,
+                updated_by,
+            });
+
+            res.redirect("/api/permissions");
+        } else {
+            res.status(404).json({ message: "Employee not found" });
+        }
     } catch (error) {
         console.error("Error saving permissions:", error);
         res.status(500).json({

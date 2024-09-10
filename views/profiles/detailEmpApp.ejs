@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <!-- Link to Bootstrap CSS for base styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+        
+        .card {
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: #e1e5ea;
+            color: rgb(10, 10, 10);
+            border-bottom: 1px solid #0056b3;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .row-label {
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .badge-custom {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+        }
+        
+        .badge-success-custom {
+            background-color: #28a745;
+            color: #fff;
+        }
+        
+        .badge-danger-custom {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+        
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        
+        .form-control {
+            border-radius: 20px;
+        }
+        
+        .input-group-append .btn {
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">
+                        <a href="/api/emp-profile"><i class="fa-solid fa-house"></i></a>
+                        <%= title %>
+                    </h3>
+                    <div>
+                        <form action="/api/update-emp-app" method="post" class="form-inline">
+                            <div class="input-group">
+                                <input type="hidden" name="id" value="<%= appeal.id %>" />
+                                <input type="search" name="accepted_comment" class="form-control" placeholder="Comment..." />
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-custom">
+                      <i class="fa-regular fa-paper-plane"></i>
+                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- <div class="row mb-2">
+                    <div class="col-md-4 row-label">ID:</div>
+                    <div class="col-md-8">
+                        <%= appeal.id %>
+                    </div>
+                </div> -->
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Full Name:</div>
+                    <div class="col-md-8">
+                        <%= appeal.full_name %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Phone Number:</div>
+                    <div class="col-md-8">
+                        <%= appeal.phone_number %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Category:</div>
+                    <div class="col-md-8">
+                        <%= appeal.categoryDetails ? appeal.categoryDetails.name : 'N/A'
+              %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Filial:</div>
+                    <div class="col-md-8">
+                        <%= appeal.filialDetails ? appeal.filialDetails.name : 'N/A' %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Appeal Type:</div>
+                    <div class="col-md-8">
+                        <%= appeal.appealTypeDetails ? appeal.appealTypeDetails.name :
+              'N/A' %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Top Category:</div>
+                    <div class="col-md-8">
+                        <%= appeal.topCategoryDetails ? appeal.topCategoryDetails.name :
+              'N/A' %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Subject:</div>
+                    <div class="col-md-8">
+                        <%= appeal.subject %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Content:</div>
+                    <div class="col-md-8">
+                        <%= appeal.content %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Additional Info:</div>
+                    <div class="col-md-8">
+                        <%= appeal.additional_info %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Created At:</div>
+                    <div class="col-md-8">
+                        <%= new Date(appeal.created_at).toLocaleDateString() %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Created By:</div>
+                    <div class="col-md-8">
+                        <%= appeal.created_by %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Status:</div>
+                    <div class="col-md-8">
+                        <% if (appeal.status === "8") { %>
+                            <span class="badge badge-danger badge-custom">Nofaol</span>
+                            <% } else { %>
+                                <span class="badge badge-success badge-custom">Qabul qildim</span>
+                                <% } %>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 row-label">Deadline At:</div>
+                    <div class="col-md-8">
+                        <%= new Date(appeal.deadline_at).toLocaleDateString() %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

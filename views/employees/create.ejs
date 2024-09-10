@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 120vh;
             margin: 0;
         }
         
@@ -64,7 +64,6 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             box-sizing: border-box;
-            /* Ensures padding is included in width */
         }
         
         .form-group input:focus,
@@ -108,6 +107,23 @@
         .cancel-btn:hover {
             opacity: 0.9;
         }
+        /* Two column layout for form inputs */
+        
+        .form-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .form-group {
+            flex: 1 1 calc(50% - 20px);
+            /* Adjusts to two columns */
+        }
+        
+        .form-group.full-width {
+            flex: 1 1 100%;
+            /* For full-width elements */
+        }
     </style>
 </head>
 
@@ -117,37 +133,56 @@
             <h2>Create New Employee</h2>
         </div>
         <form class="employee-form" action="/api/save-employee" method="POST">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" autofocus id="name" name="name" placeholder="Full Name" required />
-            </div>
-            <div class="form-group">
-                <label for="phone_number">Phone Number</label>
-                <input type="text" id="phone_number" name="phone" placeholder="+998(XX)-XXX-XX-XX" required />
-            </div>
-
-            <div class="form-group">
-                <label for="filial_id">Filial</label>
-                <select id="filial_id" name="filial_id" required>
-            <option value="">Select Filial</option>
-            <% filials.forEach(function(filial) { %>
-            <option value="<%= filial.id %>"><%= filial.name %></option>
-            <% }) %>
-          </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filial_id">Position</label>
-                <select id="position_id" name="position_id">
-            <option value="">Select Position</option>
-            <% positions.forEach(function(position) { %>
-            <option value="<%= position.id %>"><%= position.title %></option>
-            <% }) %>
-          </select>
-            </div>
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" placeholder="Title" required />
+            <div class="form-columns">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" autofocus id="name" name="name" placeholder="Full Name" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="alijontashtanov065@gmail.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password" placeholder="password" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone" placeholder="+998(XX)-XXX-XX-XX" required />
+                </div>
+                <div class="form-group">
+                    <label for="filial_id">Filial</label>
+                    <select id="filial_id" name="filial_id" required>
+              <option value="">Select Filial</option>
+              <% filials.forEach(function(filial) { %>
+              <option value="<%= filial.id %>"><%= filial.name %></option>
+              <% }) %>
+            </select>
+                </div>
+                <div class="form-group">
+                    <label for="position_id">Position</label>
+                    <select id="position_id" name="position_id">
+              <option value="">Select Position</option>
+              <% positions.forEach(function(position) { %>
+              <option value="<%= position.id %>"><%= position.title %></option>
+              <% }) %>
+            </select>
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Title" required />
+                </div>
+                <div class="form-group">
+                    <label for="position_id">Permission</label>
+                    <select id="permission_id" name="permission_id">
+              <option value="">Select Permission</option>
+              <% permissions.forEach(function(permission) { %>
+              <option value="<%= permission.id %>">
+                <%= permission.name %>
+              </option>
+              <% }) %>
+            </select>
+                </div>
             </div>
             <div class="form-footer">
                 <a href="/api/employees" class="cancel-btn">Cancel</a>

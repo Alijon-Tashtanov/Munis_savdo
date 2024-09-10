@@ -7,6 +7,7 @@ const {
     TopCategories,
     Positions,
     Permissions,
+    Employee,
 } = require("../models");
 
 // exports.getMainPage = async(req, res) => {
@@ -96,7 +97,10 @@ exports.savePosition = async(req, res) => {
     try {
         const { title, permission_id } = req.body;
 
-        const created_by = req.user ? req.user.name : "Unknown";
+        const id = req.user.id; // Get the employee ID from the request object
+        const employee = await Employee.findByPk(id);
+        const userName = employee.name;
+        const created_by = userName ? userName : "Unknown";
 
         // Save the data to the database
         await Positions.create({
@@ -104,6 +108,7 @@ exports.savePosition = async(req, res) => {
             permission_id,
             created_by,
             created_at: new Date(),
+            updated_at: new Date(),
         });
         res.redirect("/api/positions");
     } catch (error) {

@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const methodOverride = require("method-override");
 const multer = require("multer");
 const path = require("path");
@@ -14,15 +15,14 @@ const statusRoutes = require("./routes/statusRoutes");
 const usersRoutes = require("./routes/userRoutes");
 const appealTypeRoutes = require("./routes/appealTypeRoutes");
 const permissionRoutes = require("./routes/permissionRoutes");
-const authMiddleware = require("./middlewaree/authMiddleware");
-const roleMiddleware = require("./middlewaree/roleMiddleware");
+const authRoutes = require("./routes/authRoutes");
+const isAuthmiddleware = require("./middlewaree/isAuthmiddleware"); // Correct path
+const permissionMiddleware = require("./middlewaree/perMiddleware");
 
 dotenv.config();
 const app = express();
-
-// app.set("views", path.join(__dirname, "views")); // This sets the views directory
-// app.set("view engine", "ejs");
-
+app.use(cookieParser());
+// Set EJS as the view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -32,9 +32,6 @@ app.use(express.json());
 
 // Method override middleware
 app.use(methodOverride("_method"));
-
-// Set EJS as the view engine
-app.set("view engine", "ejs");
 
 // Static files middleware
 app.use(express.static(path.join(__dirname, "public")));
@@ -57,16 +54,16 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
-// Define routes
-app.use("/api", mainRoutes);
-app.use("/api", filialRoutes);
-app.use("/api", positionRoutes);
-app.use("/api", employeeRoutes);
-app.use("/api", categoryRoutes);
-app.use("/api", statusRoutes);
-app.use("/api", appealTypeRoutes);
-app.use("/api", permissionRoutes);
-// app.use("/api", usersRoutes);
+// Routeswwwwwwwwwww
+app.use("/api", authRoutes);
+app.use("/api", isAuthmiddleware, mainRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, filialRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, positionRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, employeeRoutes);
+app.use("/api", isAuthmiddleware, categoryRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, statusRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, appealTypeRoutes); // Protected routes
+app.use("/api", isAuthmiddleware, permissionRoutes); // Protected routes
 
 // MySQL Database connection
 const connection = mysql.createConnection({

@@ -8,4 +8,9 @@ router.get("/create-employee", employeeController.createEmployee);
 router.get("/detailEmployee/:id", employeeController.renderEditEmployeePage);
 router.post("/save-employee", employeeController.saveEmployee);
 router.post("/deleteEmployee/:id", employeeController.deleteEmployee);
+
+//edit password by ID
+router.get("/edit-password/:id", employeeController.editPassword);
+router.post("/update-password", employeeController.updatePassword);
+
 module.exports = router;
