@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Employee</title>
+    <title>Tahrirlash</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
         body {
@@ -113,18 +113,18 @@
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Edit Employee</h2>
+            <h2>Tahrirlash</h2>
         </div>
         <!-- Form action should point to the update route -->
         <form class="employee-form" action="/api/update-employee/<%= employee.id %>" method="POST">
             <input type="hidden" name="method" value="PUT" />
             <div class="form-group">
-                <label for="name">Full Name</label>
+                <label for="name">FIO</label>
                 <!-- Pre-fill the name input with the existing employee data -->
-                <input type="text" id="name" name="name" placeholder="Full Name" value="<%= employee.name %>" required />
+                <input type="text" id="name" name="name" placeholder="FIO" value="<%= employee.name %>" required />
             </div>
             <div class="form-group">
-                <label for="phone_number">Phone Number</label>
+                <label for="phone_number">Telefon</label>
                 <!-- Pre-fill the phone input with the existing employee data -->
                 <input type="text" id="phone_number" name="phone" placeholder="+998(XX)-XXX-XX-XX" value="<%= employee.phone %>" required />
             </div>
@@ -132,7 +132,7 @@
             <div class="form-group">
                 <label for="filial_id">Filial</label>
                 <select id="filial_id" name="filial_id" required>
-                    <option value="">Select Filial</option>
+                    <option value="">Tanlang</option>
                     <% filials.forEach(function(filial) { %>
                         <!-- Pre-select the current filial -->
                         <option value="<%= filial.id %>" <%= filial.id == employee.filial_id ? 'selected' : '' %>><%= filial.name %></option>
@@ -141,9 +141,9 @@
             </div>
 
             <div class="form-group">
-                <label for="position_id">Position</label>
+                <label for="position_id">Lavozimi</label>
                 <select id="position_id" name="position_id" required>
-                    <option value="">Select Position</option>
+                    <option value="">Tanlang</option>
                     <% positions.forEach(function(position) { %>
                         <!-- Pre-select the current position -->
                         <option value="<%= position.id %>" <%= position.id == employee.position_id ? 'selected' : '' %>><%= position.title %></option>
@@ -152,21 +152,21 @@
             </div>
 
             <div class="form-group">
-                <label for="title">Title</label>
+                <label for="title">Qo'shimcha</label>
                 <!-- Pre-fill the title input with the existing employee data -->
-                <input type="text" id="title" name="title" placeholder="Title" value="<%= employee.title %>" required />
+                <input type="text" id="title" name="title" placeholder="qo'shimcha" value="<%= employee.title %>" required />
             </div>
             <div class="form-group">
-                <label for="title">Status</label>
+                <label for="title">Holati</label>
                 <select name="status" class="status-select">
                     <option value="1" <%= employee.status === 1 ? 'selected' : '' %>><span class="badge badge-success">Faol</span></option>
                     <option value="0" <%= employee.status === 0 ? 'selected' : '' %>><span class="badge badge-danger">Nofaol</span></option>
                 </select>
             </div>
             <div class="form-footer">
-                <a href="/api/employees" class="cancel-btn">Cancel</a>
+                <a href="/api/employees" class="cancel-btn">Bekor qilish</a>
                 <!-- Update button text to indicate editing -->
-                <button type="submit" class="submit-btn">Update</button>
+                <button type="submit" class="submit-btn">Yuborish</button>
             </div>
         </form>
     </div>

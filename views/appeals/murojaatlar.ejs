@@ -225,19 +225,52 @@
         .footer-right i {
             margin-right: 10px;
         }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .pagination a {
+            color: #333;
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .pagination a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .pagination a.active {
+            background-color: #4caf50;
+            color: white;
+            border: 1px solid #4caf50;
+        }
+        
+        .prev-btn,
+        .next-btn {
+            background-color: #f44336;
+            color: white;
+            border: 1px solid #f44336;
+        }
     </style>
 
 </head>
 
 <body>
     <div class="container">
-        <h1>Мурожаатлар</h1>
+        <h1>Murojaatlar</h1>
 
         <!-- Header Section -->
         <div class="header">
-            <a href="/api/dashboard"><i class="fa-solid fa-house"></i></a>
+            <a href="/api"><i class="fa-solid fa-house"></i></a>
             <div>
-                <span>Мурожаатлар</span>
+                <span>Murojaatlar</span>
                 <label class="switch">
                     <input type="checkbox" id="toggleCheckbox" />
                     <span class="slider"></span>
@@ -250,14 +283,14 @@
             <div class="filters">
                 <!-- <a href="/api" class="search-btn">Back</a> -->
                 <select class="filter" name="filial" id="filterByFilials">
-                    <option value="">Филиаллар буйича</option>
+                    <option value="">Filiallar bo'yicha</option>
                     <% filials.forEach(function(filial) { %>
                         <option value="<%= filial.id %>" <%= (filial.id == filterFilial) ? 'selected' : '' %>><%= filial.name %></option>
                     <% }); %>
                 </select>
 
                 <select class="filter" name="category" id="filterByAppealTypes">
-                    <option value="">Категориялар буйича</option>
+                    <option value="">Kategoriyalar buyicha</option>
                     <% categories.forEach(function(category) { %>
                         <option value="<%= category.id %>" <%= (category.id == filterCategory) ? 'selected' : '' %>><%= category.name %></option>
                     <% }); %>
@@ -265,14 +298,14 @@
 
                 <input type="text" class="date-input" placeholder="Search..." name="searchBar" id="searchBar" />
                 <button type="submit" class="search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i> Излаш
+                    <i class="fa-solid fa-magnifying-glass"></i> Izlash
                 </button>
             </div>
         </form>
 
         <!-- Buttons Section -->
         <div class="buttons">
-            <a href="/api/create-murojaat" class="add-btn">Қўшиш</a>
+            <a href="/api/create-murojaat" class="add-btn">Qo'shish</a>
             <!-- <a href="/download" class="export-btn">Юклаш (PDF)</a> -->
         </div>
 
@@ -288,7 +321,6 @@
                         </div>
                         <div class="appeal-content">
                             <p>
-
                                 <%= appeal.content %>
                             </p>
                             <p><strong>Murojaat qiluvchi:</strong>
@@ -297,35 +329,53 @@
                             <p><strong>Telefon nomer:</strong>
                                 <%= appeal.phone_number %>
                             </p>
-
                             <p><strong>Qo'shimcha ma'lumotlar:</strong>
                                 <%= appeal.additional_info %>
                             </p>
-                            <p><strong>xodim komentariyasi:</strong>
+                            <p><strong>Murojaat mavzusi:</strong>
+                                <%= appeal.subject %>
+                            </p>
+                            <p><strong>Xodim komentariyasi:</strong>
                                 <%= appeal.accepted_comment %>
                             </p>
                         </div>
                         <div class="appeal-footer">
-                            <div style="display: flex;justify-content: space-around;">
+                            <div style="display: flex; justify-content: space-around;">
                                 <div class="footer-left">
                                     <strong><i class="fa-solid fa-user" style="margin-right: 10px;"></i> <%= appeal.employee ? appeal.employee.name : 'No Employee' %></strong>
                                 </div>
                                 <div style="margin-left: 25px;">
-                                    <strong> Status:<%= appeal.statuses ? appeal.statuses.name : 'No status' %></strong>
+                                    <strong>Status: <%= appeal.statuses ? appeal.statuses.name : 'No status' %></strong>
                                 </div>
                             </div>
                             <div class="footer-right">
-                                <i class="fa-regular fa-calendar" style="margin-right:10px;"></i>
+                                <i class="fa-regular fa-calendar" style="margin-right: 10px;"></i>
                                 <span><%= new Date(appeal.created_at).toLocaleString() %></span>
                             </div>
                         </div>
                     </div>
                     <% }); %>
+
+                        <!-- Pagination Controls -->
+                        <div class="pagination">
+                            <% if (currentPage > 1) { %>
+                                <a href="?page=<%= currentPage - 1 %>&limit=10" class="prev-btn">Previous</a>
+                                <% } %>
+
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                        <a href="?page=<%= i %>&limit=10" class="<%= currentPage === i ? 'active' : '' %>">
+                                            <%= i %>
+                                        </a>
+                                        <% } %>
+
+                                            <% if (currentPage < totalPages) { %>
+                                                <a href="?page=<%= currentPage + 1 %>&limit=10" class="next-btn">Next</a>
+                                                <% } %>
+                        </div>
                         <% } else { %>
                             <p>Murojaatlar mavjud emas.</p>
                             <% } %>
         </div>
-
     </div>
 
     <script>

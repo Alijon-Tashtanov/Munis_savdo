@@ -464,13 +464,13 @@
 
     <body>
         <div class="container">
-            <h1>Менинг Мурожаатларим</h1>
+            <h1>Mening Murojaatlarim</h1>
 
             <!-- Header Section -->
             <div class="header">
-                <a href="/api/dashboard"><i class="fa-solid fa-house"></i></a>
+                <a href="/api"><i class="fa-solid fa-house"></i></a>
                 <div>
-                    <span>Мурожаатлар</span>
+                    <span>Murojaatlar</span>
                     <label class="switch">
                         <input type="checkbox" id="toggleCheckbox" />
                         <span class="slider"></span>
@@ -483,14 +483,14 @@
                 <div class="filters">
                     <!-- <a href="/api" class="search-btn">Back</a> -->
                     <select class="filter" name="filial" id="filterByFilials">
-                        <option value="">Филиаллар буйича</option>
+                        <option value="">Filiallar bo'yicha</option>
                         <% filials.forEach(function(filial) { %>
                             <option value="<%= filial.id %>" <%= (filial.id == filterFilial) ? 'selected' : '' %>><%= filial.name %></option>
                         <% }); %>
                     </select>
 
                     <select class="filter" name="category" id="filterByAppealTypes">
-                        <option value="">Категориялар буйича</option>
+                        <option value="">Kategoriyalar buyicha</option>
                         <% categories.forEach(function(category) { %>
                             <option value="<%= category.id %>" <%= (category.id == filterCategory) ? 'selected' : '' %>><%= category.name %></option>
                         <% }); %>
@@ -498,7 +498,7 @@
 
                     <input type="text" class="date-input" placeholder="Search..." name="searchBar" id="searchBar" />
                     <button type="submit" class="search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i> Излаш
+                        <i class="fa-solid fa-magnifying-glass"></i> Izlash
                     </button>
                 </div>
             </form>
@@ -521,7 +521,7 @@
                                 <a href="/api/edit-emp-single-app/<%= appeal.id %>" class="btn btn-app" style="margin-right: 20px;">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <span>Категория: <%= appeal.categoryDetails ? appeal.categoryDetails.name : 'No Category' %></span>
+                                <span>Kategoriya: <%= appeal.categoryDetails ? appeal.categoryDetails.name : 'No Category' %></span>
                             </div>
                         </div>
                         <div class="appeal-content">
@@ -549,7 +549,7 @@
                                     <strong><i class="fa-solid fa-user" style="margin-right: 10px;"></i> <%= appeal.employee ? appeal.employee.name : 'No Employee' %></strong>
                                 </div>
                                 <div style="margin-left: 25px;">
-                                    <strong>Status: <%= appeal.statuses ? appeal.statuses.name : 'No status' %></strong>
+                                    <strong>Holati: <%= appeal.statuses ? appeal.statuses.name : 'No status' %></strong>
                                 </div>
                             </div>
                             <div class="footer-right">

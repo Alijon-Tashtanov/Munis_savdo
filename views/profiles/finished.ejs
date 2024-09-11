@@ -125,7 +125,7 @@
     <div class="mt-4">
         <div class="card">
             <div class="card-header">
-                <a href="/api/dashboard" style="margin-right: 10px"><i class="fa-solid fa-house"></i
+                <a href="/api" style="margin-right: 10px"><i class="fa-solid fa-house"></i
           ></a>
 
                 <h3 class="card-title">Yopilgan Murojaatlar</h3>
@@ -135,25 +135,25 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Full Name</th>
-                            <th>Phone Number</th>
-                            <th>Top Category</th>
-                            <th>Category ID</th>
-                            <th>Appeal Type</th>
-                            <th>Filials</th>
-                            <th>Subject</th>
-                            <th>Content</th>
-                            <th>employee</th>
-                            <th>Additional Info</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Accepted At</th>
-                            <th>Resulted At</th>
-                            <th>Resulted Comment</th>
-                            <th>Finished At</th>
-                            <th>Finished by</th>
-                            <th>Finished Comment</th>
-                            <th>Deadline At</th>
+                            <th>FIO</th>
+                            <th>Telefon</th>
+                            <th>Bosh kategoriya</th>
+                            <th>Kategoriya</th>
+                            <th>Murojaat turi</th>
+                            <th>Filial</th>
+                            <th>Mavzu</th>
+                            <th>Mazmun</th>
+                            <th>Xodim</th>
+                            <th>Qo'shimcha</th>
+                            <th>Holati</th>
+                            <th>Yaratilgan</th>
+                            <th>Qabul qilindi</th>
+                            <th>Natijalandi</th>
+                            <th>Natija Kommenti</th>
+                            <th>Tamomlandi</th>
+                            <th>Tamomladi</th>
+                            <th>Tamomlash Comment</th>
+                            <th>Muddati</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -279,39 +279,5 @@
     <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.colVis.min.js"></script>
 
     <!-- Initialize DataTables with buttons -->
-    <script>
-      $(document).ready(function () {
-        if (!$.fn.DataTable.isDataTable("#appealsTable")) {
-          $("#appealsTable").DataTable({
-            dom: "Bfrtip",
-            buttons: [
-              "copy",
-              "csv",
-              "print",
-              {
-                extend: "pdf",
-                text: "Export PDF",
-                title: "Appeals Data",
-                orientation: "portrait",
-                pageSize: "A4",
-                customize: function (doc) {
-                  doc.content[1].table.widths = Array(
-                    doc.content[1].table.body[0].length
-                  ).fill("*");
-                  doc.styles.tableHeader.alignment = "center";
-                },
-              },
-            ],
-            paging: false, // Disable DataTables pagination as we have custom pagination
-            lengthChange: false,
-            searching: true,
-            ordering: true,
-            info: true,
-            autoWidth: false,
-            responsive: true,
-          });
-        }
-      });
-    </script>
   </body>
 </html>

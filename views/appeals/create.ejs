@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Мурожаат Яратиш</title>
-    <link rel="stylesheet" href="styles.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* height: 100vh; */
             margin: 0;
         }
         
@@ -21,8 +20,9 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 1500px;
-            height: 600px;
+            width: 1000px;
+            padding: 20px;
+            height: 100%;
         }
         
         .form-header {
@@ -44,24 +44,28 @@
         }
         
         .form-group {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
         
         .form-group input,
         .form-group select,
         .form-group textarea {
-            width: calc(50% - 10px);
+            width: 100%;
             padding: 15px;
-            margin: 5px;
+            margin: 5px 0;
             font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
         
         .form-group textarea {
-            width: 100%;
             resize: none;
         }
         
@@ -101,90 +105,130 @@
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Мурожаат яратиш</h2>
+            <h2>Murojaat yaratish</h2>
         </div>
         <form class="appeal-form" action="/api/save-murojaat" method="POST">
             <input type="hidden" name="status" value="7" />
             <div class="form-group">
-                <input type="text" name="full_name" placeholder="ФИО" required />
-                <input type="text" name="phone_number" placeholder="+998(XX)-XXX-XX-XX" required />
+                <label for="full_name">FIO</label>
+                <input type="text" name="full_name" id="full_name" required />
             </div>
+
             <div class="form-group">
+                <label for="phone_number">Telefon raqami</label>
+                <input type="text" name="phone_number" id="phone_number" placeholder="+998(XX)-XXX-XX-XX" required />
+            </div>
+
+            <div class="form-group">
+                <label for="appeal_type">Murojaat turi</label>
                 <select id="appeal_type" name="appeal_type" required>
-            <option value="">Мурожаат тури</option>
+            <option value="">Tanlang</option>
+
             <% appeal_type.forEach(function(appeal_type) { %>
             <option value="<%= appeal_type.id %>">
               <%= appeal_type.name %>
             </option>
             <% }) %>
           </select>
+            </div>
+
+            <div class="form-group">
+                <label for="category_id">Kategoriyalar</label>
                 <select id="category_id" name="category_id" required>
-            <option value="">Категориялар</option>
+            <option value="">Tanlang</option>
+
             <% categories.forEach(function(category) { %>
             <option value="<%= category.id %>"><%= category.name %></option>
             <% }) %>
           </select>
+            </div>
+
+            <div class="form-group">
+                <label for="top_category">Yukori kategoriyalar</label>
                 <select id="top_category" name="top_category" required>
-            <option value="">Юкори категориялар</option>
+            <option value="">Tanlang</option>
             <% top_categories.forEach(function(top_category) { %>
             <option value="<%= top_category.id %>">
               <%= top_category.name %>
             </option>
             <% }) %>
           </select>
+            </div>
+
+            <div class="form-group">
+                <label for="filials">Filial</label>
                 <select id="filials" name="filials" required>
-            <option value="">Филиал</option>
+            <option value="">Tanlang</option>
             <% filials.forEach(function(filial) { %>
-            <option value="<%= filial.id %>"><%= filial.name %></option>
-            <% }) %>
+                <option value="<%= filial.id %>"><%= filial.name %></option>
+                <% }) %>
+            </option>
+          
           </select>
             </div>
+
             <div class="form-group">
-                <input type="text" name="subject" placeholder="Мавзу" required />
-                <input type="date" name="deadline_at" placeholder="deadline" required />
+                <label for="subject">Mavzu</label>
+                <input type="text" name="subject" id="subject" required />
             </div>
+
             <div class="form-group">
-                <textarea name="content" placeholder="Мазмун" required></textarea>
+                <label for="deadline_at">Muddat</label>
+                <input type="date" name="deadline_at" id="deadline_at" required />
             </div>
+
             <div class="form-group">
-                <input type="text" name="additional_info" placeholder="Қўшимча маълумотлар" />
+                <label for="content">Mazmun</label>
+                <textarea name="content" id="content" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional_info">Qo'shimcha ma'lumotlar</label>
+                <input type="text" name="additional_info" id="additional_info" />
+            </div>
+
+            <div class="form-group">
+                <label for="employees">Xodimlar</label>
                 <select id="employees" name="emp_id" required>
-            <option value="">Employees</option>
+            <option value="">Tanlang</option>
+            <!-- Insert dynamic options here -->
           </select>
             </div>
+
             <div class="form-footer">
-                <a type="button" href="/api/appeals" class="cancel-btn">Бекор қилиш</a
-          >
-          <button type="submit" class="submit-btn">Тасдиқлаш</button>
-        </div>
-      </form>
+                <a href="/api/appeals" class="cancel-btn">Bekor qilish</a>
+                <button type="submit" class="submit-btn">Tasdiqlash</button>
+            </div>
+        </form>
     </div>
+
     <script>
-      document
-        .getElementById("filials")
-        .addEventListener("change", function () {
-          const filialId = this.value;
+        // Fetch employees based on selected filial
+        document
+            .getElementById("filials")
+            .addEventListener("change", function() {
+                const filialId = this.value;
 
-          if (!filialId) {
-            document.getElementById("employees").innerHTML =
-              '<option value="">Employees</option>';
-            return;
-          }
+                if (!filialId) {
+                    document.getElementById("employees").innerHTML =
+                        '<option value="">Employees</option>';
+                    return;
+                }
 
-          fetch(`/api/get-employees?filial_id=${filialId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("1121", data);
-              let options = '<option value="">Employees</option>';
-              data.forEach((employee) => {
-                options += `<option value="${employee.id}">${employee.name}</option>`;
-              });
-              document.getElementById("employees").innerHTML = options;
-            })
-            .catch((error) => {
-              console.error("Error fetching employees:", error);
+                fetch(`/api/get-employees?filial_id=${filialId}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        let options = '<option value="">Employees</option>';
+                        data.forEach((employee) => {
+                            options += `<option value="${employee.id}">${employee.name}</option>`;
+                        });
+                        document.getElementById("employees").innerHTML = options;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching employees:", error);
+                    });
             });
-        });
     </script>
-  </body>
+</body>
+
 </html>

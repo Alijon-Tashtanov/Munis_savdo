@@ -114,17 +114,17 @@
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Create New Position</h2>
+            <h2>Lavozim yaratish</h2>
         </div>
         <form class="employee-form" action="/api/save-position" method="POST">
             <div class="form-group">
-                <label for="full_name">Name</label>
+                <label for="full_name">Nomi</label>
                 <input type="text" autofocus id="full_name" name="title" placeholder="Name" required />
             </div>
             <div class="form-group">
                 <label for="permission_id">Ruxsat</label>
                 <select id="permission_id" name="permission_id" required>
-            <option value="">Select Ruxsat</option>
+            <option value="">Tanlang</option>
             <% permissions.forEach(function(data) { %>
             <option value="<%= data.id %>"><%= data.name %></option>
             <% }); %>
@@ -132,8 +132,8 @@
             </div>
 
             <div class="form-footer">
-                <a href="/api/positions" class="cancel-btn">Cancel</a>
-                <button type="submit" class="submit-btn">Save</button>
+                <a href="/api/positions" class="cancel-btn">Bekor qilish</a>
+                <button type="submit" class="submit-btn">Yuborish</button>
             </div>
         </form>
     </div>

@@ -90,7 +90,7 @@
                         <form action="/api/update-emp-app" method="post" class="form-inline">
                             <div class="input-group">
                                 <input type="hidden" name="id" value="<%= appeal.id %>" />
-                                <input type="search" name="accepted_comment" class="form-control" placeholder="Comment..." />
+                                <input type="search" name="accepted_comment" class="form-control" placeholder="Komment..." />
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-custom">
                       <i class="fa-regular fa-paper-plane"></i>
@@ -109,19 +109,19 @@
                     </div>
                 </div> -->
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Full Name:</div>
+                    <div class="col-md-4 row-label">FIO:</div>
                     <div class="col-md-8">
                         <%= appeal.full_name %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Phone Number:</div>
+                    <div class="col-md-4 row-label">Telefon:</div>
                     <div class="col-md-8">
                         <%= appeal.phone_number %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Category:</div>
+                    <div class="col-md-4 row-label">Kategoriya:</div>
                     <div class="col-md-8">
                         <%= appeal.categoryDetails ? appeal.categoryDetails.name : 'N/A'
               %>
@@ -134,51 +134,51 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Appeal Type:</div>
+                    <div class="col-md-4 row-label">Murojaat turi:</div>
                     <div class="col-md-8">
                         <%= appeal.appealTypeDetails ? appeal.appealTypeDetails.name :
               'N/A' %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Top Category:</div>
+                    <div class="col-md-4 row-label">Bosh Kategoriya:</div>
                     <div class="col-md-8">
                         <%= appeal.topCategoryDetails ? appeal.topCategoryDetails.name :
               'N/A' %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Subject:</div>
+                    <div class="col-md-4 row-label">Mavzu:</div>
                     <div class="col-md-8">
                         <%= appeal.subject %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Content:</div>
+                    <div class="col-md-4 row-label">Mazmuni:</div>
                     <div class="col-md-8">
                         <%= appeal.content %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Additional Info:</div>
+                    <div class="col-md-4 row-label">Qo'shimcha Ma'lumot:</div>
                     <div class="col-md-8">
                         <%= appeal.additional_info %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Created At:</div>
+                    <div class="col-md-4 row-label">Yaratilgan:</div>
                     <div class="col-md-8">
                         <%= new Date(appeal.created_at).toLocaleDateString() %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Created By:</div>
+                    <div class="col-md-4 row-label">Yaratgan:</div>
                     <div class="col-md-8">
                         <%= appeal.created_by %>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Status:</div>
+                    <div class="col-md-4 row-label">Holati:</div>
                     <div class="col-md-8">
                         <% if (appeal.status === "8") { %>
                             <span class="badge badge-danger badge-custom">Nofaol</span>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 row-label">Deadline At:</div>
+                    <div class="col-md-4 row-label">Muddati:</div>
                     <div class="col-md-8">
                         <%= new Date(appeal.deadline_at).toLocaleDateString() %>
                     </div>

@@ -19,7 +19,44 @@
 
     <!-- Custom Styles -->
     <style>
-        /* You can add custom CSS styles here if needed */
+        /* Stylish Gradient Heading */
+        
+        .custom-heading {
+            /* Gradient effect on the text */
+            background: linear-gradient(90deg, #ff007a, #ff6f61, #ffc048, #ff007a);
+            background-size: 400%;
+            margin-left: 25px;
+            -webkit-background-clip: text;
+            color: transparent;
+            /* Shadow for depth */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            /* Animate gradient for a dynamic effect */
+            animation: gradientAnimation 5s ease-in-out infinite;
+            /* Add some letter spacing for readability */
+            letter-spacing: 0.1em;
+            /* Optional: Add text transform */
+            text-transform: uppercase;
+        }
+        /* Gradient animation */
+        
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0%;
+            }
+            50% {
+                background-position: 100%;
+            }
+            100% {
+                background-position: 0%;
+            }
+        }
+        /* Optional: Add a hover effect for interaction */
+        
+        .custom-heading:hover {
+            text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
     </style>
 </head>
 
@@ -176,7 +213,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/api/permissions" class="nav-link">
+                        <a href="/api/appeal_types" class="nav-link">
                             <i class="fa-solid fa-list"></i>
                             <p>Murojaat turlari</p>
                         </a>
@@ -191,7 +228,9 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dashboard</h1>
+                            <h1 class="display-4 font-weight-bold custom-heading mb-4">
+                                Munis Savdo
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -207,12 +246,12 @@
                                 <h3>
                                     <%= allAppeals %>
                                 </h3>
-                                <p>All Appeals</p>
+                                <p>Barcha Murojaatlar</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
-                            <a href="/api/appeals" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i
+                            <a href="/api/appeals " class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i
                 ></a>
                         </div>
                     </div>
@@ -227,7 +266,7 @@
                             <div class="icon">
                                 <i class="fa-solid fa-code-branch"></i>
                             </div>
-                            <a href="/api/filials" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i
+                            <a href="/api/filials " class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i
                 ></a>
                         </div>
                     </div>
@@ -242,7 +281,7 @@
                             <div class="icon">
                                 <i class="fas fa-chart-line"></i>
                             </div>
-                            <a href="/api/resulted" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i
+                            <a href="/api/resulted " class="small-box-footer">Batafsil<i class="fas fa-arrow-circle-right"></i
                 ></a>
                         </div>
                     </div>
@@ -257,7 +296,7 @@
                             <div class="icon">
                                 <i class="fas fa-chart-pie"></i>
                             </div>
-                            <a href="/api/finished" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i
+                            <a href="/api/finished " class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i
                 ></a>
                         </div>
                     </div>
@@ -272,7 +311,7 @@
                             <div class="icon">
                                 <i class="fas fa-user-plus"></i>
                             </div>
-                            <a href="/api/employees" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i
+                            <a href="/api/employees " class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i
                 ></a>
                         </div>
                     </div>
@@ -282,13 +321,13 @@
     </div>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js "></script>
 
     <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js "></script>
 
     <!-- AdminLTE JS -->
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js "></script>
 </body>
 
 </html>

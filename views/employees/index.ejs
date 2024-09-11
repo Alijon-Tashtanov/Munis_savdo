@@ -157,43 +157,43 @@
 <body>
     <div class="table-container">
         <div class="header">
-            <a href="/api/dashboard" class="add-btn">Back</a>
-            <h1>Employee List</h1>
+            <a href="/api" class="add-btn">Ortga</a>
+            <h1>Xodimlar ro'yhati</h1>
 
             <div>
                 <form action="/api/employees" id="searchByText" method="get">
                     <div class="filters">
                         <select class="filter" name="filial" id="filterByFilials">
-                            <option value="">Филиаллар буйича</option>
+                            <option value=""> Filiallar bo'yicha</option>
                             <% filials.forEach(function(filial) { %>
                             <option value="<%= filial.id %>" <%= (filial.id == filterFilial) ? 'selected' : '' %>><%= filial.name %></option>
                             <% }); %>
                         </select>
-                        <input type="text" class="date-input" placeholder="Search..." name="searchBar" id="searchBar" />
+                        <input type="text" class="date-input" placeholder="Qidir..." name="searchBar" id="searchBar" />
                         <button type="submit" class="search-btn">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </form>
             </div>
-            <a href="/api/create-employee" class="add-btn">Add Employee</a>
+            <a href="/api/create-employee" class="add-btn">Qo'shish</a>
         </div>
 
         <% if (data && data.length > 0) { %>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
+                        <th>Id</th>
+                        <th>Ismi</th>
+                        <th>Login</th>
+                        <th>Telefon</th>
                         <th>Filial</th>
-                        <th>Position</th>
-                        <th>Permission</th>
-                        <th>Status</th>
-                        <th style="width: 150px">Created At</th>
-                        <th style="width: 150px">Updated At</th>
-                        <th style="width: 150px">Actions</th>
+                        <th>Lavozimi</th>
+                        <th>Ruxsati</th>
+                        <th>Holati</th>
+                        <th style="width: 150px">Yaratilgan</th>
+                        <th style="width: 150px">O'zgartirilgan</th>
+                        <th style="width: 150px">Harakatlar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -255,7 +255,7 @@
                 </tbody>
             </table>
             <% } else { %>
-                <p>No employees found.</p>
+                <p>Xodimlar topilmadi.</p>
                 <% } %>
     </div>
 

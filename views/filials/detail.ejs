@@ -126,25 +126,25 @@
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Мурожаат яратиш</h2>
+            <h2>Филиал тахрирлаш</h2>
         </div>
         <form class="appeal-form" action="/api/updateFilial/<%= filial.id %>" method="POST">
             <input type="hidden" name="method" value="PUT" />
             <div class="form-group">
                 <input type="text" name="name" placeholder="Филиал" required value="<%= filial.name %>" />
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <select name="status" class="status-select">
                     <option value="1" <%= filial.status === 1 ? 'selected' : '' %>><span class="badge badge-success">Faol</span></option>
                     <option value="0" <%= filial.status === 0 ? 'selected' : '' %>><span class="badge badge-danger">Nofaol</span></option>
                 </select>
-            </div>
+            </div> -->
             <div class="form-footer">
-                <a type="button" href="/api/filials" class="cancel-btn">Бекор қилиш</a>
-                <button type="submit" class="submit-btn">Тасдиқлаш</button>
-            </div>
-        </form>
+                <a type="button" href="/api/filials" class="cancel-btn">Bekor qilish</a
+          >
+          <button type="submit" class="submit-btn">Yuborish</button>
+        </div>
+      </form>
     </div>
-</body>
-
+  </body>
 </html>

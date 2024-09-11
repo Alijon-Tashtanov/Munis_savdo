@@ -126,18 +126,18 @@
 <body>
     <div class="form-container">
         <div class="form-header">
-            <h2>Permission edit</h2>
+            <h2>Ruxsat tahrirlash</h2>
         </div>
         <form class="appeal-form" action="/api/update-permission/<%= data.id %>" method="POST">
             <input type="hidden" name="method" value="PUT" />
             <div class="form-group">
-                <input type="text" name="name" placeholder="Status" required value="<%= data.name %>" />
+                <input type="text" name="name" placeholder="" required value="<%= data.name %>" />
             </div>
 
             <div class="form-footer">
-                <a type="button" href="/api/permissions" class="cancel-btn">Бекор қилиш</a
+                <a type="button" href="/api/permissions" class="cancel-btn">Bekor qilish</a
           >
-          <button type="submit" class="submit-btn">Тасдиқлаш</button>
+          <button type="submit" class="submit-btn">Yuborish</button>
         </div>
       </form>
     </div>

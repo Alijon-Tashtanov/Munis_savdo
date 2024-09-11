@@ -73,6 +73,9 @@ exports.getMurojaat = async(req, res) => {
         const searchTerm = req.query.searchBar || "";
         const filterFilial = req.query.filial || "";
         const filterCategory = req.query.category || "";
+        const page = parseInt(req.query.page, 10) || 1; // default to page 1
+        const limit = parseInt(req.query.limit, 10) || 10; // default to 10 items per page
+        const offset = (page - 1) * limit;
 
         let whereConditions = {
             [Op.or]: [{
@@ -101,15 +104,15 @@ exports.getMurojaat = async(req, res) => {
             whereConditions.category_id = filterCategory; // Adjust field name based on your model
         }
 
-        const appeals = await Appeal.findAll({
+        const { count, rows: appeals } = await Appeal.findAndCountAll({
             where: {
                 emp_id: {
                     [Op.and]: [{
                             [Op.ne]: null,
-                        },
+                        }, // emp_id is not null
                         {
                             [Op.ne]: 0,
-                        },
+                        }, // emp_id is not 0
                     ],
                 },
             },
@@ -119,7 +122,14 @@ exports.getMurojaat = async(req, res) => {
                 { model: Employee, as: "employee" },
                 { model: Filials, as: "filialDetails" },
             ],
+            order: [
+                ["created_at", "DESC"]
+            ],
+            limit,
+            offset,
         });
+
+        const totalPages = Math.ceil(count / limit);
 
         const categories = await Category.findAll();
         const filials = await Filials.findAll();
@@ -127,10 +137,12 @@ exports.getMurojaat = async(req, res) => {
         res.render("appeals/murojaatlar", {
             title: "Murojaatlar",
             appeals: appeals || [],
-            categories: categories,
-            filials: filials,
-            filterFilial: filterFilial,
-            filterCategory: filterCategory,
+            categories,
+            filials,
+            filterFilial,
+            filterCategory,
+            currentPage: page,
+            totalPages,
         });
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -271,7 +283,7 @@ exports.getEmpOneApp = async(req, res) => {
         console.log("Appeal Details:", appeal);
 
         res.render("profiles/detailEmpApp", {
-            title: "Murojaat Details",
+            title: "Murojaat mazmuni",
             appeal: appeal,
         });
     } catch (error) {
@@ -391,7 +403,7 @@ exports.compareLogin = async(req, res) => {
         const token = generateJWTToken(existUser.id, existUser.permission_id); // Ensure generateJWTToken is correctly invoked
         res.cookie("token", token);
 
-        res.redirect("/api/dashboard");
+        res.redirect("/api");
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -539,6 +551,9 @@ exports.empFinishApp = async(req, res) => {
     }
 };
 exports.empClosedApp = async(req, res) => {
+    const { resulted_comment } = req.body;
+
+    console.log("body", resulted_comment);
     const userId = req.user.id; // Get the employee ID from the request object
     const employee = await Employee.findByPk(userId);
     const userName = employee.name;
@@ -559,7 +574,7 @@ exports.empClosedApp = async(req, res) => {
         // console.log("popa", accepted_comment);
 
         // Update accepted_comment and accepted_at
-        appeal.finished_comment = "Murojaat tugatildi"; // Default comment if none provided
+        appeal.finished_comment = resulted_comment || "Murojaat tugatildi"; // Default comment if none provided
         appeal.finished_at = new Date(); // Set current date and time
         appeal.finished_by = finished_by; // Set current date and time
         appeal.status = 10; // Assuming 2 is the status code for "accepted"
@@ -634,6 +649,35 @@ exports.resultedApps = async(req, res) => {
                 totalPages: totalPages,
                 currentPage: page,
             },
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message,
+        });
+    }
+};
+exports.showResultedApps = async(req, res) => {
+    try {
+        const id = req.params.id;
+        const response = await Appeal.findOne({
+            where: {
+                id: id,
+            },
+            include: [
+                { model: Category, as: "categoryDetails" },
+                { model: Status, as: "statuses" },
+                { model: Employee, as: "employee" },
+                { model: Filials, as: "filialDetails" },
+                { model: TopCategories, as: "topCategoryDetails" },
+                { model: AppealType, as: "appealTypeDetails" },
+            ],
+        });
+
+        res.render("profiles/detailResulted", {
+            title: "Register Page",
+            response,
         });
     } catch (error) {
         console.error("Error fetching data:", error.message);

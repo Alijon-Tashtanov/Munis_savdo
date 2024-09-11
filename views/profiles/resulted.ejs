@@ -130,47 +130,47 @@
         <div class="card">
             <div class="card-header">
                 <div style="display: flex">
-                    <a href="/api/dashboard"><i class="fa-solid fa-house"></i></a>
+                    <a href="/api"><i class="fa-solid fa-house"></i></a>
                     <h3 class="card-title">Murojaat natijalari</h3>
                 </div>
-
-                >
             </div>
             <div class="card-body table-container">
                 <table id="appealsTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Full Name</th>
-                            <th>Phone Number</th>
-                            <th>Top Category</th>
-                            <th>Category ID</th>
-                            <th>Appeal Type</th>
-                            <th>Filials</th>
-                            <th>Subject</th>
-                            <th>Content</th>
-                            <th>Employee</th>
-                            <th>Additional Info</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Accepted At</th>
-                            <th>Resulted At</th>
-                            <th>Resulted Comment</th>
-                            <th>Deadline At</th>
+                            <!-- <th>ID</th> -->
+                            <th>FIO</th>
+                            <!-- <th>Telefon</th> -->
+                            <th>Bosh kategoriya</th>
+                            <th>Kategoriya</th>
+                            <th>Murojaat turi</th>
+                            <th>Filial</th>
+                            <!-- <th>Mavzu</th> -->
+                            <!-- <th>Mazmuni</th> -->
+                            <th>Xodim</th>
+                            <!-- <th>Qo'shimcha</th> -->
+                            <th>Holat</th>
+                            <th>Yaratilgan</th>
+                            <th>Qabul qilingan</th>
+                            <th>Natijalandi</th>
+                            <!-- <th>Natija Kommenti</th> -->
+                            <!-- <th>Muddati</th> -->
+                            <!-- Add a column for the 'Yopish' button -->
+                            <th>Amal</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% appeals.forEach(function(appeal) { %>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <%= appeal.id %>
-                                </td>
+                                </td> -->
                                 <td>
                                     <%= appeal.full_name %>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <%= appeal.phone_number %>
-                                </td>
+                                </td> -->
                                 <td>
                                     <%= appeal.topCategoryDetails ? appeal.topCategoryDetails.name
                   : 'N/A' %>
@@ -187,78 +187,84 @@
                                     <%= appeal.filialDetails ? appeal.filialDetails.name : 'N/A'
                   %>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <%= appeal.subject %>
-                                </td>
-                                <td>
+                                </td> -->
+                                <!-- <td>
                                     <%= appeal.content %>
-                                </td>
+                                </td> -->
                                 <td>
                                     <%= appeal.employee ? appeal.employee.name : 'Unknown' %>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <%= appeal.additional_info %>
-                                </td>
+                                </td> -->
                                 <td>
                                     <%= appeal.statuses ? appeal.statuses.name : 'N/A' %>
                                 </td>
                                 <td>
-                                    <%= appeal.created_at %>
+                                    <%= new Date(appeal.created_at).toLocaleString('en-GB', {year:
+                  'numeric', month: '2-digit', day: '2-digit', hour: '2-digit',
+                  minute: '2-digit', hour12: false}) %>
                                 </td>
                                 <td>
-                                    <%= appeal.accepted_at %>
+                                    <%= new Date(appeal.accepted_at).toLocaleString('en-GB',
+                  {year: 'numeric', month: '2-digit', day: '2-digit', hour:
+                  '2-digit', minute: '2-digit', hour12: false}) %>
                                 </td>
                                 <td>
                                     <%= appeal.resulted_at %>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <%= appeal.resulted_comment %>
-                                </td>
+                                </td> -->
+                                <!-- <td>
+                                    <%= new Date(appeal.deadline_at).toLocaleString('en-GB',
+                  {year: 'numeric', month: '2-digit', day: '2-digit', hour:
+                  '2-digit', minute: '2-digit', hour12: false}) %>
+                                </td> -->
+
+                                <!-- New column for the 'Yopish' button -->
                                 <td>
-                                    <%= appeal.deadline_at %>
+                                    <a href="/api/emp-show-single-app/<%= appeal.id %>">
+                                        <button type="button" class="btn btn-primary">
+                      <i class="fa-regular fa-eye"></i>
+                    </button>
+                                    </a>
                                 </td>
-                                <div style="margin-bottom: 15px">
-                                    <a href="/api/emp-closed-app/<%= appeal.id %>"><button type="button" class="btn btn-primary">
-                      Yopish
-                    </button></a
-                  >
-                </div>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer">
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <% if (pagination.currentPage > 1) { %>
-              <li class="page-item">
-                <a
-                  class="page-link"
-                  href="?page=<%= pagination.currentPage - 1 %>"
-                  >Previous</a
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <% if (pagination.currentPage > 1) { %>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<%= pagination.currentPage - 1 %>">Oldingi</a
                 >
               </li>
               <% } else { %>
               <li class="page-item disabled">
-                <span class="page-link">Previous</span>
+                <span class="page-link">Oldingi</span>
               </li>
               <% } %> <% for (let i = 1; i <= pagination.totalPages; i++) { %>
               <li
                 class="page-item <%= pagination.currentPage === i ? 'active' : '' %>"
               >
                 <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-                                    </li>
-                                    <% } %>
-                                        <% if (pagination.currentPage < pagination.totalPages) {
+                            </li>
+                            <% } %>
+                                <% if (pagination.currentPage < pagination.totalPages) {
               %>
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<%= pagination.currentPage + 1 %>">Next</a
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<%= pagination.currentPage + 1 %>">Keyingi</a
                 >
               </li>
               <% } else { %>
               <li class="page-item disabled">
-                <span class="page-link">Next</span>
+                <span class="page-link">Keyingi</span>
               </li>
               <% } %>
             </ul>
@@ -281,29 +287,14 @@
     <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.1/js/buttons.colVis.min.js"></script>
 
-    <!-- Initialize DataTables with buttons -->
+    <!-- Initialize DataTables without copy, csv, print, and pdf buttons -->
     <script>
       $(document).ready(function () {
         if (!$.fn.DataTable.isDataTable("#appealsTable")) {
           $("#appealsTable").DataTable({
             dom: "Bfrtip",
             buttons: [
-              "copy",
-              "csv",
-              "print",
-              {
-                extend: "pdf",
-                text: "Export PDF",
-                title: "Appeals Data",
-                orientation: "portrait",
-                pageSize: "A4",
-                customize: function (doc) {
-                  doc.content[1].table.widths = Array(
-                    doc.content[1].table.body[0].length
-                  ).fill("*");
-                  doc.styles.tableHeader.alignment = "center";
-                },
-              },
+              // You can add any other buttons if needed
             ],
             paging: false,
             lengthChange: false,
