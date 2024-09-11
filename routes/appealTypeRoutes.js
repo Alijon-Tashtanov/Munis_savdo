@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const appealTypeController = require("../controllers/appealTypeController");
 router.get("/appeal_types", appealTypeController.getMainPage);
-router.get("/create-appeal_type", appealTypeController.createAppeal_type);
+router.get("_type", appealTypeController.createAppeal_type);
 router.post("/save-appeal_type", appealTypeController.saveAppeal_type);
 router.get(
     "/detail-appeal_type/:id",

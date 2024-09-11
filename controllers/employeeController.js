@@ -164,16 +164,16 @@ exports.saveEmployee = async(req, res) => {
         });
 
         // Generate JWT token for the newly created user
-        const token = generateJWTToken(newUser.id, permission_id);
+        // const token = generateJWTToken(newUser.id, permission_id);
 
-        // Set the token as a cookie
-        res.cookie("token", token, {
-            httpOnly: true,
-            sameSite: "Strict",
-            secure: false,
-        });
+        // // Set the token as a cookie
+        // res.cookie("token", token, {
+        //     httpOnly: true,
+        //     sameSite: "Strict",
+        //     secure: false,
+        // });
 
-        console.log("Generated token:", token);
+        // console.log("Generated token:", token);
 
         res.redirect("/api/employees");
     } catch (error) {

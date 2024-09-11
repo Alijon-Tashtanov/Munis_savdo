@@ -202,33 +202,35 @@
         </form>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Fetch employees based on selected filial
-        document
-            .getElementById("filials")
-            .addEventListener("change", function() {
-                const filialId = this.value;
+        $("#filials").on("change", function() {
+            const filialId = $(this).val();
 
-                if (!filialId) {
-                    document.getElementById("employees").innerHTML =
-                        '<option value="">Employees</option>';
-                    return;
-                }
+            if (!filialId) {
+                $("#employees").html('<option value="">Employees</option>');
+                return;
+            }
 
-                fetch(`/api/get-employees?filial_id=${filialId}`)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        let options = '<option value="">Employees</option>';
-                        data.forEach((employee) => {
-                            options += `<option value="${employee.id}">${employee.name}</option>`;
-                        });
-                        document.getElementById("employees").innerHTML = options;
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching employees:", error);
+            $.ajax({
+                url: `/api/get-employees?filial_id=${filialId}`,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let options = '<option value="">Employees</option>';
+                    data.forEach(function(employee) {
+                        options += `<option value="${employee.id}">${employee.name}</option>`;
                     });
+                    $("#employees").html(options);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching employees:", error);
+                }
             });
+        });
     </script>
+
 </body>
 
 </html>

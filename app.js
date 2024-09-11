@@ -40,98 +40,22 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api", authRoutes);
 app.use("/api", errorRoutes);
 
-const routePermissions = {
-    9: ["/api", "/api/employees"],
-    10: ["/api", "/api/empProfile"],
-    11: ["/api", "api/appeals"],
-    13: ["/api", "/api/appeals"],
-    14: ["/api", "/api/finished"],
-};
+//boshqadan mikrofoning joqqin
+//app.use("/api", isAuthmiddleware, authRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, dashboardRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, mainRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, finishedRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, empProfileRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, permissionRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, appealTypeRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, statusRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, categoryRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, employeeRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, filialRoutes);
 
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    authRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    errorRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    dashboardRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    finishedRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    mainRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    hrRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    positionRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    filialRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    employeeRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    categoryRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    statusRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    appealTypeRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    permissionRoutes
-);
-app.use(
-    "/api",
-    isAuthmiddleware,
-    permissionMiddleware(routePermissions),
-    empProfileRoutes
-);
+app.use("/api", isAuthmiddleware, permissionMiddleware, positionRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, hrRoutes);
+app.use("/api", isAuthmiddleware, permissionMiddleware, filialRoutes);
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST || "localhost",
